@@ -4,10 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "departments", schema = "hypermarket")
-
-
-public class Department {
+@Table(name = "prod_categories", schema = "hypermarket")
+public class ProdCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,14 +15,19 @@ public class Department {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
 
     @Override
     public String toString() {
-        return "Department{" +
+        return "ProdCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", product=" + product +
                 ", manager=" + manager +
                 '}';
     }
@@ -32,16 +35,17 @@ public class Department {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Department)) return false;
-        Department that = (Department) o;
+        if (!(o instanceof ProdCategory)) return false;
+        ProdCategory that = (ProdCategory) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getProduct(), that.getProduct()) &&
                 Objects.equals(getManager(), that.getManager());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getManager());
+        return Objects.hash(getId(), getName(), getProduct(), getManager());
     }
 
     public Long getId() {
@@ -58,6 +62,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Employee getManager() {
