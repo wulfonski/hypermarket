@@ -23,17 +23,25 @@ public class Employee {
     private double salary;
     @Column(name = "job_title", length = 40, nullable = false)
     private String jobTitle;
-
-
+    @ManyToOne
+    @JoinColumn(name="dept_id")
+    private Department department;
     @Column(name = "city", length = 20, nullable = false)
     private String city;
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name="manager_id")
     private Employee manager;
 
     @OneToMany(mappedBy="manager")
     private Set<Employee> subordinates = new HashSet<>();
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public Long getId() {
         return id;
