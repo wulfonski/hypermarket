@@ -16,6 +16,10 @@ public class Product {
     @Column(name="supplier_price", length = 40, nullable = false)
     private double suplierPrice;
 
+    @ManyToOne
+    @JoinColumn(name ="supplier_id", nullable=false)
+    private Supplier supplier;
+
     @Column(name="stock", length = 40, nullable = false)
     private int stock;
 
