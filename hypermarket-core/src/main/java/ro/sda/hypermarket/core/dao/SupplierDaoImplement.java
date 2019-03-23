@@ -23,7 +23,6 @@ import java.util.List;
 @Repository
 @Transactional
 public class SupplierDaoImplement implements SupplierDao {
-    EntityManager em;
 
     @Autowired
     private SessionFactory sessionFactory;

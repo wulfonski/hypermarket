@@ -33,6 +33,13 @@ public class SupplierDaoTest {
         List<Supplier> allSuppliers = supplierDao.getAllSuppliers();
         System.out.println(allSuppliers);
     }
+//    @Test
+//    public void findById(int supplierId){
+//        Supplier supplier = new Supplier();
+//        supplier.getId();
+//
+//
+//    }
 
     @Test
     public void testGetSupplierById() {
