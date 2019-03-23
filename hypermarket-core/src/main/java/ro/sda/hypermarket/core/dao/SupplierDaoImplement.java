@@ -3,6 +3,7 @@ package ro.sda.hypermarket.core.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,6 +42,29 @@ public class SupplierDaoImplement implements SupplierDao {
         List<Supplier> allSuppliers = sessionFactory.getCurrentSession().createQuery(criteriaQuery).getResultList();
         return allSuppliers;
 
+    }
+
+    @Override
+    public Supplier getSupplierById(Long id) {
+        return sessionFactory.getCurrentSession().byId(Supplier.class).getReference(id);
+    }
+
+    @Override
+    public void deleteSupplier(Supplier supplier) {
+        Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
+        Supplier supplier1 = getSupplierById(supplier.getId());
+        sessionFactory.getCurrentSession().delete(supplier1);
+        sessionFactory.getCurrentSession().flush();
+        tr.commit();
+    }
+
+    @Override
+    public void updateSupplier(Supplier supplier) {
+        Transaction tr = sessionFactory.getCurrentSession().beginTransaction();
+        Supplier supplier1 = getSupplierById(supplier.getId());
+        sessionFactory.getCurrentSession().merge(supplier1);
+        sessionFactory.getCurrentSession().flush();
+        tr.commit();
     }
 
 }

@@ -6,10 +6,15 @@ import java.util.List;
 
 public interface SupplierDao {
 
-    public Supplier createSupplier(Supplier supplier);
-    public List<Supplier> getAllSuppliers();
-//    public Supplier getSupplier(Long id);
-//    public void deleteSupplier(Supplier supplier);
+    Supplier createSupplier(Supplier supplier);
+
+    List<Supplier> getAllSuppliers();
+
+    Supplier getSupplierById(Long id);
+
+    void deleteSupplier(Supplier supplier);
+
+    void updateSupplier(Supplier supplier);
 
 
 }

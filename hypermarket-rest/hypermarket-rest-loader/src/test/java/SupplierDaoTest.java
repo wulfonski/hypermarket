@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class SupplierDaoTest {
     private SupplierDao supplierDao;
 
     @Test
-    public void testCreate(){
+    public void testCreate() {
         Supplier supplier = new Supplier();
         supplier.setName("Victor");
         supplier.setContactNo("07552225525");
@@ -28,9 +29,40 @@ public class SupplierDaoTest {
     }
 
     @Test
-    public void getAllSuppliers(){
-        List <Supplier> allSuppliers = supplierDao.getAllSuppliers();
+    public void testGetAllSuppliers() {
+        List<Supplier> allSuppliers = supplierDao.getAllSuppliers();
         System.out.println(allSuppliers);
     }
 
+    @Test
+    public void testGetSupplierById() {
+        Supplier supplier = supplierDao.getSupplierById(1L);
+        Long supplierId = supplier.getId();
+        String supplierName = supplier.getName();
+        String supplierCity = supplier.getCity();
+        Assert.assertEquals("Victor", supplierName);
+        Assert.assertEquals("Iasi", supplierCity);
+        Assert.assertEquals(new Long(1), supplierId);
+    }
+
+    @Test
+    public void testDeleteSupplier(){
+        Supplier supplier = supplierDao.getSupplierById(1l);
+        supplierDao.deleteSupplier(supplier);
+        List<Supplier> allSuppliers = supplierDao.getAllSuppliers();
+        Assert.assertTrue(allSuppliers.isEmpty());
+    }
+
+    @Test
+    public void testUpdateSupplierTest(){
+
+        Supplier supplier = supplierDao.getSupplierById(2L);
+        supplier.setCity("Bacau");
+        String supplierCity = supplier.getCity();
+        supplierDao.updateSupplier(supplier);
+        Assert.assertEquals("Bacau", supplierCity);
+
+    }
+
 }
+
