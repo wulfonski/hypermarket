@@ -1,6 +1,7 @@
 package ro.sda.hypermarket.core.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Sale {
     @Column(name = "number", nullable = false)
     private Long number;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "sale_date", nullable = false)
     private Date saleDate;
 
