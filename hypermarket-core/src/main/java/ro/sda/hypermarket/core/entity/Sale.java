@@ -25,19 +25,12 @@ public class Sale {
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     @OneToMany(mappedBy = "sale")
     private Set<SaleProduct> saleProduct;
-
-    @Override
-    public String toString() {
-        return "Sale{" +
-                "id=" + id +
-                ", number=" + number +
-                ", saleDate=" + saleDate +
-                ", client=" + client +
-                ", saleProduct=" + saleProduct +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,12 +41,25 @@ public class Sale {
                 Objects.equals(getNumber(), sale.getNumber()) &&
                 Objects.equals(getSaleDate(), sale.getSaleDate()) &&
                 Objects.equals(getClient(), sale.getClient()) &&
+                Objects.equals(getEmployee(), sale.getEmployee()) &&
                 Objects.equals(getSaleProduct(), sale.getSaleProduct());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getNumber(), getSaleDate(), getClient(), getSaleProduct());
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", number=" + number +
+                ", saleDate=" + saleDate +
+                ", client=" + client +
+                ", employee=" + employee +
+                ", saleProduct=" + saleProduct +
+                '}';
     }
 
     public Long getId() {
@@ -94,5 +100,13 @@ public class Sale {
 
     public void setSaleProduct(Set<SaleProduct> saleProduct) {
         this.saleProduct = saleProduct;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

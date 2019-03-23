@@ -5,14 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.ClientDao;
-import ro.sda.hypermarket.core.dao.ProductDao;
-import ro.sda.hypermarket.core.dao.SaleDao;
-import ro.sda.hypermarket.core.dao.SupplierDao;
-import ro.sda.hypermarket.core.entity.Client;
-import ro.sda.hypermarket.core.entity.Product;
-import ro.sda.hypermarket.core.entity.Sale;
-import ro.sda.hypermarket.core.entity.Supplier;
+import ro.sda.hypermarket.core.dao.*;
+import ro.sda.hypermarket.core.entity.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
@@ -33,6 +27,9 @@ public class SaleDaoTest {
     @Autowired
     private ClientDao clientDao;
 
+    @Autowired
+    private EmployeeDao employeeDao;
+
     @Test
     public void testCreate() {
         Calendar cal = Calendar.getInstance();
@@ -43,6 +40,15 @@ public class SaleDaoTest {
         Sale sale = new Sale();
         sale.setNumber(5255545L);
         sale.setSaleDate(date);
+
+        Employee employee = new Employee();
+        employee.setFirstName("Marius");
+        employee.setLastName("Aron");
+        employee.setCity("Suceava");
+        employee.setSalary(1400D);
+        employee.setJobTitle("mecanic");
+        employeeDao.createEmployee(employee);
+        sale.setEmployee(employee);
 
         Client client = new Client();
         client.setName("Iosif Farcas");
