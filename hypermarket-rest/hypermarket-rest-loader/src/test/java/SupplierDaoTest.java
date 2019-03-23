@@ -48,13 +48,6 @@ public class SupplierDaoTest {
         Assert.assertEquals(3, allSuppliers.size());
 
     }
-//    @Test
-//    public void findById(int supplierId){
-//        Supplier supplier = new Supplier();
-//        supplier.getId();
-//
-//
-//    }
 
     @Test
     public void testGetSupplierById() {
