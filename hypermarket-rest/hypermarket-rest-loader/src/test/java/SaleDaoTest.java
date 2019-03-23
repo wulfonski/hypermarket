@@ -31,7 +31,7 @@ public class SaleDaoTest {
     private EmployeeDao employeeDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateSale() {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(0);
         cal.set(2019, 03, 12);
@@ -87,7 +87,7 @@ public class SaleDaoTest {
     }
 
     @Test
-    public void testUpdateSaleTest() {
+    public void testUpdateSale() {
         Sale sale = saleDao.getSaleById(2L);
         sale.setNumber(1234l);
         Long saleNumber = sale.getNumber();

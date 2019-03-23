@@ -18,7 +18,7 @@ public class SupplierDaoTest {
     private SupplierDao supplierDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateSupplier() {
         Supplier supplier = new Supplier();
         supplier.setName("Victor");
         supplier.setContactNo("07552225525");
@@ -73,7 +73,7 @@ public class SupplierDaoTest {
     }
 
     @Test
-    public void testUpdateSupplierTest(){
+    public void testUpdateSupplier(){
         Supplier supplier = supplierDao.getSupplierById(2L);
         supplier.setCity("Bacau");
         String supplierCity = supplier.getCity();

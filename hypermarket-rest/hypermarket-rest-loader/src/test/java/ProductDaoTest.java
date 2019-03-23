@@ -26,7 +26,7 @@ public class ProductDaoTest {
     private SupplierDao supplierDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateProduct() {
         Product product = new Product();
         product.setName("Lapte");
         product.setStock(5);
@@ -75,7 +75,7 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void testUpdateProductTest() {
+    public void testUpdateProduct() {
         Product product = productDao.getProductById(2L);
         product.setStock(new Integer(7));
         Integer productStock = product.getStock();
