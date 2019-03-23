@@ -5,8 +5,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ro.sda.hypermarket.core.entity.Client;
-import ro.sda.hypermarket.core.entity.Supplier;
-
 import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
 import java.util.List;

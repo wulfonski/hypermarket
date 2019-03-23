@@ -1,7 +1,6 @@
 package ro.sda.hypermarket.core.dao;
 
 import ro.sda.hypermarket.core.entity.Client;
-import ro.sda.hypermarket.core.entity.Supplier;
 
 import java.util.List;
 
