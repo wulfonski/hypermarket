@@ -8,9 +8,9 @@ public interface SupplierService {
 
     Supplier createSupplier(Supplier supplier, boolean useHibernate);
 
-    Supplier getSupplierById(Long id, boolean useHibernate);
-
     List<Supplier> getAllSuppliers(boolean useHibernate);
+
+    Supplier getSupplierById(Long id, boolean useHibernate);
 
     void deleteSupplier(Supplier supplier, boolean useHibernate);
 

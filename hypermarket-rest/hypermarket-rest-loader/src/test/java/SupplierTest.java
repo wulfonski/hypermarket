@@ -31,6 +31,7 @@ public class SupplierTest {
         supplier.setContactNo("07552225525");
         supplier.setCity("Iiiii");
         supplierService.createSupplier(supplier, false);
+
     }
 
     @Test

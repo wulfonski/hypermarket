@@ -29,19 +29,19 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public Client getClientById(Long id, boolean useHibernate) {
-        if (useHibernate) {
-            return clientDao.getClientById(id);
-        }
-        return clientRepository.findById(id);
-    }
-
-    @Override
     public List<Client> getAllClients(boolean useHibernate) {
         if (useHibernate) {
             return clientDao.getAllClients();
         }
         return clientRepository.findAll();
+    }
+
+    @Override
+    public Client getClientById(Long id, boolean useHibernate) {
+        if (useHibernate) {
+            return clientDao.getClientById(id);
+        }
+        return clientRepository.findById(id);
     }
 
     @Override
