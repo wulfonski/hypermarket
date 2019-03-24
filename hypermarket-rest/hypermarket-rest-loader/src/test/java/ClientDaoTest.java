@@ -2,11 +2,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.hypermarket.core.dao.ClientDao;
 import ro.sda.hypermarket.core.entity.Client;
+import ro.sda.hypermarket.core.service.ClientService;
 
 import java.util.List;
 
@@ -17,55 +19,60 @@ import java.util.List;
 public class ClientDaoTest {
 
     @Autowired
-    private ClientDao clientDao;
+    private ClientService clientService;
 
     @Test
+    @Rollback(false)
     public void testCreateClient() {
         Client client = new Client();
-        client.setName("Andrei");
-        clientDao.createClient(client);
+        client.setName("Andreea SRL");
+        clientService.createClient(client, false);
 
     }
 
     @Test
+    @Rollback(false)
+    @Transactional
     public void testGetAllClients() {
         Client client = new Client();
         client.setName("Madalina Georgiana");
-        clientDao.createClient(client);
+        clientService.createClient(client, false);
         Client client1 = new Client();
         client1.setName("Mardare Cristina");
-        clientDao.createClient(client1);
-        List<Client> clients = clientDao.getAllClients();
-        Assert.assertEquals(3, clients.size());
+        clientService.createClient(client1, false);
+        List<Client> clients = clientService.getAllClients(false);
+        Assert.assertEquals(9, clients.size());
     }
 
     @Test
     public void testGetClientById() {
-        Client client = clientDao.getClientById(1L);
+        Client client = clientService.getClientById(2L, false);
         Long clientId = client.getId();
         String clientName = client.getName();
-        Assert.assertEquals("Andrei", clientName);
-        Assert.assertEquals(new Long(1), clientId);
+        Assert.assertEquals("Marius", clientName);
+        Assert.assertEquals(new Long(2), clientId);
     }
 
     @Test
+    @Rollback(false)
     public void testDeleteClient() {
-        List<Client> allClients = clientDao.getAllClients();
+        List<Client> allClients = clientService.getAllClients(false);
         int size1 = allClients.size();
-        Client client = clientDao.getClientById(1L);
-        clientDao.deleteClient(client);
-        List<Client> allClients2 = clientDao.getAllClients();
+        Client client = clientService.getClientById(8L,false);
+        clientService.deleteClient(client,false);
+        List<Client> allClients2 = clientService.getAllClients(false);
         int size2 = allClients2.size();
         Assert.assertEquals(size1 - 1, size2);
     }
 
     @Test
+    @Rollback(false)
     public void testUpdateClient() {
-        Client client = clientDao.getClientById(2L);
-        client.setName("Marius");
+        Client client = clientService.getClientById(10L, false);
+        client.setName("Andreea Mart");
         String clientName = client.getName();
-        clientDao.updateClient(client);
-        Assert.assertEquals("Marius", clientName);
+        clientService.updateClient(client, false);
+        Assert.assertEquals("Andreea Mart", clientName);
     }
 
 }
