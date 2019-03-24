@@ -1,7 +1,6 @@
 package ro.sda.hypermarket.core.service;
 
 import ro.sda.hypermarket.core.entity.Department;
-import ro.sda.hypermarket.core.entity.Supplier;
 
 import java.util.List;
 
