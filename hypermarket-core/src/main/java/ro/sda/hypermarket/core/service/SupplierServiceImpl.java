@@ -55,7 +55,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void updateSupplier(Supplier supplier, boolean useHibernate) {
         if (useHibernate) {
-        supplierDao.updateSupplier(supplier);
+            supplierDao.updateSupplier(supplier);
         }
         supplierRepository.save(supplier);
     }
