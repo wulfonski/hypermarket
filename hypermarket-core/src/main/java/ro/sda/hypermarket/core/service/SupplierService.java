@@ -8,11 +8,11 @@ public interface SupplierService {
 
     Supplier createSupplier(Supplier supplier, boolean useHibernate);
 
-    Supplier getSupplierById(Long id);
+    Supplier getSupplierById(Long id, boolean useHibernate);
 
-    List<Supplier> getAllSuppliers();
+    List<Supplier> getAllSuppliers(boolean useHibernate);
 
-    void deleteSupplier(Supplier supplier);
+    void deleteSupplier(Supplier supplier, boolean useHibernate);
 
-    void updateSupplier(Supplier supplier);
+    void updateSupplier(Supplier supplier, boolean useHibernate);
 }

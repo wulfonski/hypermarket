@@ -34,41 +34,58 @@ public class SupplierDaoTest {
     }
 
     @Test
+    @Rollback(false)
+    @Transactional
     public void getAllSuppliers() {
-        List<Supplier> allSuppliers = supplierService.getAllSuppliers();
-        Assert.assertEquals(5, allSuppliers.size());
+
+        Supplier supplier = new Supplier();
+        supplier.setName("Iosif SRL");
+        supplier.setContactNo("07552225525");
+        supplier.setCity("Cluj");
+        supplierService.createSupplier(supplier, false);
+
+        Supplier supplier2 = new Supplier();
+        supplier2.setName("Victor SA");
+        supplier2.setContactNo("07552225525");
+        supplier2.setCity("Firbinti");
+        supplierService.createSupplier(supplier2, false);
+
+        List<Supplier> allSuppliers = supplierService.getAllSuppliers(false);
+        Assert.assertEquals(6, allSuppliers.size());
     }
 
     @Test
     public void testGetSupplierById() {
-        Supplier supplier = supplierService.getSupplierById(3L);
+        Supplier supplier = supplierService.getSupplierById(3L, false);
         Long supplierId = supplier.getId();
         String supplierName = supplier.getName();
         String supplierCity = supplier.getCity();
         Assert.assertEquals("Victor", supplierName);
-        Assert.assertEquals("Iasi", supplierCity);
+        Assert.assertEquals("Bacau", supplierCity);
         Assert.assertEquals(new Long(3), supplierId);
     }
 
     @Test
+    @Rollback(false)
     public void testDeleteSupplier() {
 
-        List<Supplier> allSuppliers = supplierService.getAllSuppliers();
+        List<Supplier> allSuppliers = supplierService.getAllSuppliers(false);
         int size1 = allSuppliers.size();
-        Supplier supplier = supplierService.getSupplierById(21L);
-        supplierService.deleteSupplier(supplier);
-        List<Supplier> allSuppliers2 = supplierService.getAllSuppliers();
+        Supplier supplier = supplierService.getSupplierById(5L,false );
+        supplierService.deleteSupplier(supplier,false);
+        List<Supplier> allSuppliers2 = supplierService.getAllSuppliers(false);
         int size2 = allSuppliers2.size();
         Assert.assertEquals(size1 - 1, size2);
     }
 
     @Test
+    @Rollback(false)
     public void testUpdateSupplier() {
-        Supplier supplier = supplierService.getSupplierById(4L);
-        supplier.setCity("Bacau");
+        Supplier supplier = supplierService.getSupplierById(4L, false);
+        supplier.setCity("Cluj");
         String supplierCity = supplier.getCity();
-        supplierService.updateSupplier(supplier);
-        Assert.assertEquals("Bacau", supplierCity);
+        supplierService.updateSupplier(supplier,false);
+        Assert.assertEquals("Cluj", supplierCity);
     }
 
 }
