@@ -20,10 +20,9 @@ public class DepartmentDaoTest {
     private DepartmentDao departmentDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateDepartment() {
         Department department = new Department();
         department.setName("Financial");
-//        department.setManager();
         departmentDao.createDepartment(department);
 
     }
@@ -64,7 +63,7 @@ public class DepartmentDaoTest {
     }
 
     @Test
-    public void testUpdateDepartmentTest(){
+    public void testUpdateDepartment(){
 
         Department department = departmentDao.getDepartmentById(2L);
         department.setName("Sales");

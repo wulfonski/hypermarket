@@ -20,7 +20,7 @@ public class EmployeeDaoTest {
     private EmployeeDao employeeDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateEmployee() {
         Employee employee = new Employee();
         employee.setFirstName("Victor");
         employee.setLastName("Corobceanu");

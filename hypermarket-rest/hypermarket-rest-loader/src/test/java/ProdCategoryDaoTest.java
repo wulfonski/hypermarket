@@ -19,7 +19,7 @@ public class ProdCategoryDaoTest {
     private ProdCategoryDao prodCategoryDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateProdCategory() {
         ProdCategory prodCategory = new ProdCategory();
         prodCategory.setName("Food");
         prodCategoryDao.createProdCategory(prodCategory);
@@ -60,7 +60,7 @@ public class ProdCategoryDaoTest {
         Assert.assertEquals(size1 -1 , size2);
     }
     @Test
-    public void testUpdateProdCategoryTest(){
+    public void testUpdateProdCategory(){
 
         ProdCategory prodCategory = prodCategoryDao.getProdCategoryById(2L);
         prodCategory.setName("Electronics");

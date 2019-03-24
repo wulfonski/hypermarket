@@ -20,7 +20,7 @@ public class ClientDaoTest {
     private ClientDao clientDao;
 
     @Test
-    public void testCreate() {
+    public void testCreateClient() {
         Client client = new Client();
         client.setName("Andrei");
         clientDao.createClient(client);
@@ -60,7 +60,7 @@ public class ClientDaoTest {
     }
 
     @Test
-    public void testUpdateClientTest() {
+    public void testUpdateClient() {
         Client client = clientDao.getClientById(2L);
         client.setName("Marius");
         String clientName = client.getName();
