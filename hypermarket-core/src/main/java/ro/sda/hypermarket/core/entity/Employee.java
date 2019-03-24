@@ -1,20 +1,15 @@
 package ro.sda.hypermarket.core.entity;
 
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "employees", schema = "hypermarket")
 
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Employee extends BaseEntity {
 
     @Column(name="first_name", length = 40, nullable = false)
     private String firstName;
@@ -42,12 +37,38 @@ public class Employee {
     @OneToMany(mappedBy="manager")
     private Set<Employee> subordinates = new HashSet<>();
 
-    public Long getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", salary=" + salary +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", city='" + city + '\'' +
+                ", department=" + department +
+                ", manager=" + manager +
+                ", subordinates=" + subordinates +
+                '}';
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+        Employee employee = (Employee) o;
+        return Double.compare(employee.getSalary(), getSalary()) == 0 &&
+                Objects.equals(getFirstName(), employee.getFirstName()) &&
+                Objects.equals(getLastName(), employee.getLastName()) &&
+                Objects.equals(getJobTitle(), employee.getJobTitle()) &&
+                Objects.equals(getCity(), employee.getCity()) &&
+                Objects.equals(department, employee.department) &&
+                Objects.equals(getManager(), employee.getManager()) &&
+                Objects.equals(getSubordinates(), employee.getSubordinates());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getSalary(), getJobTitle(), getCity(), department, getManager(), getSubordinates());
     }
 
     public String getFirstName() {

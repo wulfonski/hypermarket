@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SupplierService {
 
-    Supplier createSupplier(Supplier supplier);
+    Supplier createSupplier(Supplier supplier, boolean useHibernate);
 
     Supplier getSupplierById(Long id);
 

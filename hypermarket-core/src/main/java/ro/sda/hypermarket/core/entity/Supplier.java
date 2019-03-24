@@ -1,15 +1,14 @@
 package ro.sda.hypermarket.core.entity;
 
+import ro.sda.hypermarket.core.base.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "suppliers", schema = "hypermarket")
-public class Supplier {
+public class Supplier extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name="name", length = 40, nullable = false)
     private String name;
 
@@ -22,7 +21,7 @@ public class Supplier {
     @Override
     public String toString() {
         return "Supplier{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", name='" + name + '\'' +
                 ", contactNo='" + contactNo + '\'' +
                 ", city='" + city + '\'' +
@@ -34,23 +33,14 @@ public class Supplier {
         if (this == o) return true;
         if (!(o instanceof Supplier)) return false;
         Supplier supplier = (Supplier) o;
-        return getId().equals(supplier.getId()) &&
-                getName().equals(supplier.getName()) &&
-                getContactNo().equals(supplier.getContactNo()) &&
-                getCity().equals(supplier.getCity());
+        return Objects.equals(getName(), supplier.getName()) &&
+                Objects.equals(getContactNo(), supplier.getContactNo()) &&
+                Objects.equals(getCity(), supplier.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getContactNo(), getCity());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return Objects.hash(getName(), getContactNo(), getCity());
     }
 
     public String getName() {

@@ -5,20 +5,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.hypermarket.core.dao.SupplierDao;
 import ro.sda.hypermarket.core.entity.Supplier;
+import ro.sda.hypermarket.core.repository.SupplierRepository;
 
 import java.util.List;
 
 @Service("supplierService")
-@Transactional(readOnly = true, rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class SupplierServiceImpl implements SupplierService {
 
     @Autowired
     private SupplierDao supplierDao;
 
+    @Autowired
+    private SupplierRepository supplierRepository;
+
     @Override
     @Transactional
-    public Supplier createSupplier(Supplier supplier) {
+    public Supplier createSupplier(Supplier supplier, boolean useHibernate) {
+        if (useHibernate) {
             return supplierDao.createSupplier(supplier);
+        }
+        return supplierRepository.save(supplier);
     }
 
     @Override
