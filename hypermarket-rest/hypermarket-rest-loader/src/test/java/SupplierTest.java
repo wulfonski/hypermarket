@@ -16,9 +16,6 @@ import java.util.List;
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
 @Transactional
 public class SupplierTest {
-//
-//    @Autowired
-//    private SupplierDao supplierDao;
 
     @Autowired
     private SupplierService supplierService;
