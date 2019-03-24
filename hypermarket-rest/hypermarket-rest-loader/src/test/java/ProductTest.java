@@ -17,7 +17,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
 @Transactional
-public class ProductDaoTest {
+public class ProductTest {
 
     @Autowired
     private ProductService productService;
