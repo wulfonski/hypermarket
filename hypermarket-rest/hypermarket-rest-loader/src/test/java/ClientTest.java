@@ -16,7 +16,7 @@ import java.util.List;
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
 @Transactional
 
-public class ClientDaoTest {
+public class ClientTest {
 
     @Autowired
     private ClientService clientService;
@@ -27,6 +27,7 @@ public class ClientDaoTest {
         Client client = new Client();
         client.setName("Andreea SRL");
         clientService.createClient(client, false);
+        Assert.assertEquals("Andreea SRL", client.getName());
 
     }
 
