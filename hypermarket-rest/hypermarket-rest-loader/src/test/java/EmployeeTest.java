@@ -19,7 +19,7 @@ import java.util.List;
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
 @Transactional
 
-public class EmployeeDaoTest {
+public class EmployeeTest {
 
     @Autowired
     private EmployeeService employeeService;

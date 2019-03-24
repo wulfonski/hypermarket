@@ -2,16 +2,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.hypermarket.core.dao.*;
 import ro.sda.hypermarket.core.entity.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import ro.sda.hypermarket.core.service.ClientService;
+import ro.sda.hypermarket.core.service.EmployeeService;
+import ro.sda.hypermarket.core.service.SaleService;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,53 +20,55 @@ import java.util.List;
 public class SaleDaoTest {
 
     @Autowired
-    private SaleDao saleDao;
+    private SaleService saleService;
 
     @Autowired
-    private ClientDao clientDao;
+    private ClientService clientService;
 
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeService employeeService;
 
     @Test
+    @Rollback(false)
     public void testCreateSale() {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(0);
-        cal.set(2019, 03, 12);
+        cal.set(2019, 05, 12);
         Date date = cal.getTime();
 
         Sale sale = new Sale();
-        sale.setNumber(5255545L);
+        sale.setNumber(558L);
         sale.setSaleDate(date);
 
         Employee employee = new Employee();
-        employee.setFirstName("Marius");
-        employee.setLastName("Aron");
+        employee.setFirstName("Andrei");
+        employee.setLastName("Calin");
         employee.setCity("Suceava");
-        employee.setSalary(1400D);
-        employee.setJobTitle("mecanic");
-        employeeDao.createEmployee(employee);
+        employee.setSalary(1900D);
+        employee.setJobTitle("sofer");
+        employeeService.createEmployee(employee, false);
         sale.setEmployee(employee);
 
         Client client = new Client();
-        client.setName("Iosif Farcas");
-        clientDao.createClient(client);
+        client.setName("Iulia Farcas");
+        clientService.createClient(client, false);
         sale.setClient(client);
-        saleDao.createSale(sale);
+        saleService.createSale(sale, false);
 
+        Assert.assertEquals("Andrei", employee.getFirstName());
+        Assert.assertEquals("Iulia Farcas", client.getName());
+        Assert.assertEquals(new Long(558), sale.getNumber());
     }
 
     @Test
     public void getAllSales() {
-
-        List<Sale> allSales = saleDao.getAllSales();
+        List<Sale> allSales = saleService.getAllSales(false);
         Assert.assertEquals(2, allSales.size());
-
     }
 
     @Test
     public void testGetSaleById() {
-        Sale sale = saleDao.getSaleById(1L);
+        Sale sale = saleService.getSaleById(1L, false);
         Long saleId = sale.getId();
         Long saleNumber = sale.getNumber();
         Assert.assertEquals(new Long(1), saleId);
@@ -76,22 +76,24 @@ public class SaleDaoTest {
     }
 
     @Test
+    @Rollback(false)
     public void testDeleteSale() {
-        List<Sale> allSales = saleDao.getAllSales();
+        List<Sale> allSales = saleService.getAllSales(false);
         int size1 = allSales.size();
-        Sale sale = saleDao.getSaleById(1L);
-        saleDao.deleteSale(sale);
-        List<Sale> allSales2 = saleDao.getAllSales();
+        Sale sale = saleService.getSaleById(1L, false);
+        saleService.deleteSale(sale, false);
+        List<Sale> allSales2 = saleService.getAllSales(false);
         int size2 = allSales2.size();
         Assert.assertEquals(size1 - 1, size2);
     }
 
     @Test
+    @Rollback(false)
     public void testUpdateSale() {
-        Sale sale = saleDao.getSaleById(2L);
+        Sale sale = saleService.getSaleById(3L, false);
         sale.setNumber(1234l);
         Long saleNumber = sale.getNumber();
-        saleDao.updateSale(sale);
+        saleService.updateSale(sale, false);
         Assert.assertEquals(new Long(1234L), saleNumber);
 
     }
