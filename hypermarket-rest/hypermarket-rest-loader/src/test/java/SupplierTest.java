@@ -15,7 +15,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
 @Transactional
-public class SupplierDaoTest {
+public class SupplierTest {
 //
 //    @Autowired
 //    private SupplierDao supplierDao;
